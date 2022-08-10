@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+
+import '../utilities.dart';
+
+Widget textFieldForm({
+  final String? text,
+  final TextEditingController? controller,
+  final TextInputType? keyboardType = TextInputType.text,
+  final String? hintText,
+  final String? labelText,
+  final int lines = 1,
+  final int maxLength = 9999,
+  final Color fillColor = Colors.transparent,
+  final VoidCallback? onTap,
+  final String? Function(String?)? validator,
+  final Widget? prefix,
+  final Widget? suffix,
+  final InputBorder? border,
+  final InputBorder? errorBorder,
+  final bool required = false,
+  final Function(String value)? onFieldSubmitted,
+  final EdgeInsets margin = EdgeInsets.zero,
+  final EdgeInsets padding = const EdgeInsets.only(right: 10),
+  final void Function(String)? onChanged,
+}) =>
+    iconTextVertical(
+      margin: margin,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      leading: text == null ? const SizedBox() : Text(text).caption(),
+      trailing: TextFormField(
+        maxLength: maxLength,
+        onFieldSubmitted: onFieldSubmitted,
+        onTap: onTap,
+        controller: controller,
+        keyboardType: keyboardType,
+        validator: validator,
+        onChanged: onChanged,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        minLines: lines,
+        maxLines: lines == 1 ? 1 : 20,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: context.textTheme.subtitle2?.copyWith(color: context.theme.primaryColor),
+          counter: const SizedBox(),
+          fillColor: fillColor,
+          hintText: hintText,
+          hintStyle: context.textTheme.subtitle2!.copyWith(color: Colors.white),
+          filled: true,
+          contentPadding: padding,
+          suffixIcon: Padding(padding: const EdgeInsets.all(8), child: suffix),
+          prefixIcon: prefix,
+          focusedBorder: border?.copyWith(borderSide: BorderSide(color: context.theme.primaryColor)),
+          enabledBorder: border,
+          errorBorder: errorBorder,
+          focusedErrorBorder: errorBorder,
+        ),
+      ),
+    );
